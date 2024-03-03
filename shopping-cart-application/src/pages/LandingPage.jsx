@@ -4,7 +4,6 @@ import { Link } from "react-router-dom";
 import { myFirebase } from "../models/MyFirebase";
 import PropTypes from "prop-types";
 import ProductItem from "../components/ProductItem";
-import AddProduct from "../components/AddProduct";
 
 export default function LandingPage() {
   const [currentPage, setCurrentPage] = useState(1);
@@ -81,15 +80,15 @@ export default function LandingPage() {
           <span className="cart-count">{cartItemCount}</span>
         </Link>
       </div>
-      <Link to="/addProduct">
+      <Link to="/productForm?action=add">
         <button type="button" className="new-product btn btn-warning">
-          Add Product
+          Create New Product
         </button>
       </Link>
       <ProductItem
         products={products}
         onAddToCart={onAddToCart}
-        onEditProduct={onEditProduct}
+        // onEditProduct={onEditProduct}
         onDeleteProduct={onDeleteProduct}
       />
       <ul className="pagination">

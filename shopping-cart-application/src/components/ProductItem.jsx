@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 export default function ProductItem({
   products,
   onAddToCart,
-  onEditProduct,
   onDeleteProduct,
 }) {
   return (
@@ -23,14 +23,14 @@ export default function ProductItem({
               >
                 Add to Cart
               </button>
-
-              <button
-                type="button"
-                className="product-button btn btn-primary"
-                onClick={() => onEditProduct(product)}
-              >
-                Edit
-              </button>
+              <Link to={`/productForm?action=edit&id=${product.id}`}>
+                <button
+                  type="button"
+                  className="product-button btn btn-primary"
+                >
+                  Edit
+                </button>
+              </Link>
 
               <button
                 type="button"

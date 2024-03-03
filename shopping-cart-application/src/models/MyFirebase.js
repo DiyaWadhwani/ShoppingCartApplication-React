@@ -6,6 +6,7 @@ import {
   doc,
   setDoc,
   deleteDoc,
+  getDoc,
 } from "firebase/firestore";
 
 export default function MyFirebase() {
@@ -122,6 +123,31 @@ export default function MyFirebase() {
       console.log("Products removed from cart successfully");
     } catch (error) {
       console.error("Error removing products from cart:", error);
+    }
+  };
+
+  me.getProductDetails = async (productId) => {
+    const productRef = doc(myDatabase, "products", productId);
+    const productSnapshot = await getDoc(productRef);
+    if (productSnapshot.exists()) {
+      console.log("Product data:", productSnapshot.data());
+      return productSnapshot.data();
+    } else {
+      console.log("No such product");
+    }
+  };
+
+  me.updateProduct = async (product) => {
+    console.log("Updating product", product);
+    const productRef = doc(myDatabase, "products", product.productId);
+    try {
+      await setDoc(productRef, {
+        productName: product.productName,
+        productPrice: product.productPrice,
+      });
+      console.log("Product updated successfully");
+    } catch (error) {
+      console.error("Error updating product:", error);
     }
   };
 

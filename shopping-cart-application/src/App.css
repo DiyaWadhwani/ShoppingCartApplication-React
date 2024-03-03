@@ -84,3 +84,11 @@
 .product-button{
   margin-right: 25px;
 }
+
+.empty-cart{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  font-size: 2rem;
+}

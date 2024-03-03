@@ -33,27 +33,33 @@ export default function CartPage() {
             <FaHome className="header-icon" />
           </Link>
         </div>
-        <ul>
-          {productsInCart.map((product) => (
-            <li className="product-display" key={product.id}>
-              <div className="product-name">
-                <strong>{product.data.productName}</strong>
-                <div className="product-price">
-                  ${product.data.productPrice}
-                </div>
-              </div>
-              <div className="product-accessory">
-                <button
-                  type="button"
-                  className="btn btn-danger"
-                  onClick={() => onRemoveFromCart(product)}
-                >
-                  Remove
-                </button>
-              </div>
-            </li>
-          ))}
-        </ul>
+        <div>
+          {productsInCart && productsInCart.length === 0 ? (
+            <div className="empty-cart">Your cart is empty</div>
+          ) : (
+            <ul>
+              {productsInCart.map((product) => (
+                <li className="product-display" key={product.id}>
+                  <div className="product-name">
+                    <strong>{product.data.productName}</strong>
+                    <div className="product-price">
+                      ${product.data.productPrice}
+                    </div>
+                  </div>
+                  <div className="product-accessory">
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      onClick={() => onRemoveFromCart(product)}
+                    >
+                      Remove
+                    </button>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
     </>
   );
