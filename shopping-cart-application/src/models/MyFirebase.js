@@ -118,8 +118,10 @@ export default function MyFirebase() {
   me.deleteProduct = async (product) => {
     console.log("Deleting products", product);
     const productRef = collection(myDatabase, "products");
+    const cartRef = collection(myDatabase, "cart");
     try {
       await deleteDoc(doc(productRef, product.id));
+      await deleteDoc(doc(cartRef, product.id));
       console.log("Products removed from cart successfully");
     } catch (error) {
       console.error("Error removing products from cart:", error);

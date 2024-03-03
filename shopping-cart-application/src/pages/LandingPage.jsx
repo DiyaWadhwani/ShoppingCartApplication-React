@@ -67,10 +67,6 @@ export default function LandingPage() {
     window.location.reload();
   };
 
-  const onEditProduct = async (product) => {
-    console.log("Editing Product", product.id, product.data);
-  };
-
   return (
     <>
       <div className="header">
@@ -88,7 +84,6 @@ export default function LandingPage() {
       <ProductItem
         products={products}
         onAddToCart={onAddToCart}
-        // onEditProduct={onEditProduct}
         onDeleteProduct={onDeleteProduct}
       />
       <ul className="pagination">
