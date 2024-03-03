@@ -37,27 +37,45 @@ export default function CartPage() {
           {productsInCart && productsInCart.length === 0 ? (
             <div className="empty-cart">Your cart is empty</div>
           ) : (
-            <ul>
-              {productsInCart.map((product) => (
-                <li className="product-display" key={product.id}>
-                  <div className="product-name">
-                    <strong>{product.data.productName}</strong>
-                    <div className="product-price">
-                      ${product.data.productPrice}
+            <>
+              <ul>
+                {productsInCart.map((product) => (
+                  <li className="product-display" key={product.id}>
+                    <div className="product-name">
+                      <strong>{product.data.productName}</strong>
+                      <div className="product-price">
+                        ${product.data.productPrice}
+                      </div>
                     </div>
+                    <div className="product-accessory">
+                      <button
+                        type="button"
+                        className="btn btn-danger"
+                        onClick={() => onRemoveFromCart(product)}
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </li>
+                ))}
+              </ul>
+
+              {productsInCart.length > 0 && (
+                <div className="total">
+                  <strong>Total:</strong>
+                  <div className="total-price">
+                    $
+                    {productsInCart
+                      .reduce(
+                        (acc, product) =>
+                          acc + parseFloat(product.data.productPrice),
+                        0
+                      )
+                      .toFixed(2)}
                   </div>
-                  <div className="product-accessory">
-                    <button
-                      type="button"
-                      className="btn btn-danger"
-                      onClick={() => onRemoveFromCart(product)}
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </li>
-              ))}
-            </ul>
+                </div>
+              )}
+            </>
           )}
         </div>
       </div>
