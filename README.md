@@ -47,6 +47,7 @@ To run the application locally, follow these steps:
 
 
 ## Web-Hosted URL
+https://shoppingcart-c69ac.web.app
 
 
 ## License
