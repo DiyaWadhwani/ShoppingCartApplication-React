@@ -4,16 +4,19 @@ import { Link } from "react-router-dom";
 import { myFirebase } from "../models/MyFirebase";
 import PropTypes from "prop-types";
 import ProductItem from "../components/ProductItem";
+import AddProduct from "../components/AddProduct";
 
 export default function LandingPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const itemsPerPage = 10;
   const [cartItemCount, setCartItemCount] = useState(0);
+  const [totalItems, setTotalItems] = useState(0);
 
   useEffect(() => {
     const getProducts = async () => {
       const allProducts = await myFirebase.getProducts();
+      setTotalItems(allProducts.length);
       const start = (currentPage - 1) * itemsPerPage;
       const end = start + itemsPerPage;
       const paginatedProducts = allProducts.slice(start, end);
@@ -21,18 +24,52 @@ export default function LandingPage() {
     };
 
     getProducts();
+    getCartCount();
   }, [currentPage]);
+
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
 
+  const renderPaginationButtons = () => {
+    const buttons = [];
+    for (let i = 1; i <= totalPages; i++) {
+      buttons.push(
+        <li
+          key={i}
+          className={`page-item ${currentPage === i ? "active" : ""}`}
+        >
+          <button className="page-link" onClick={() => handlePageChange(i)}>
+            {i}
+          </button>
+        </li>
+      );
+    }
+    return buttons;
+  };
+
   const onAddToCart = async (product) => {
-    console.log("Add to Cart", product.id, product.data);
     const response = await myFirebase.addProductsToCart(product);
+    getCartCount();
+    console.log(response);
+  };
+
+  const getCartCount = async () => {
     const cartCount = await myFirebase.fetchCountInCart();
     setCartItemCount(cartCount);
+  };
+
+  const onDeleteProduct = async (product) => {
+    console.log("Deleting Product", product.id, product.data);
+    const response = await myFirebase.deleteProduct(product);
     console.log(response);
+    window.location.reload();
+  };
+
+  const onEditProduct = async (product) => {
+    console.log("Editing Product", product.id, product.data);
   };
 
   return (
@@ -44,8 +81,17 @@ export default function LandingPage() {
           <span className="cart-count">{cartItemCount}</span>
         </Link>
       </div>
-      <ProductItem products={products} onAddToCart={onAddToCart} />
-
+      <Link to="/addProduct">
+        <button type="button" className="new-product btn btn-warning">
+          Add Product
+        </button>
+      </Link>
+      <ProductItem
+        products={products}
+        onAddToCart={onAddToCart}
+        onEditProduct={onEditProduct}
+        onDeleteProduct={onDeleteProduct}
+      />
       <ul className="pagination">
         <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
           <button
@@ -56,26 +102,14 @@ export default function LandingPage() {
             <span aria-hidden="true">«</span>
           </button>
         </li>
-        <li className={`page-item ${currentPage === 1 ? "active" : ""}`}>
-          <button className="page-link" onClick={() => handlePageChange(1)}>
-            1
-          </button>
-        </li>
-        <li className={`page-item ${currentPage === 2 ? "active" : ""}`}>
-          <button className="page-link" onClick={() => handlePageChange(2)}>
-            2
-          </button>
-        </li>
-        <li className={`page-item ${currentPage === 3 ? "active" : ""}`}>
-          <button className="page-link" onClick={() => handlePageChange(3)}>
-            3
-          </button>
-        </li>
-        <li className={`page-item ${currentPage === 3 ? "disabled" : ""}`}>
+        {renderPaginationButtons()}
+        <li
+          className={`page-item ${currentPage === totalPages ? "disabled" : ""}`}
+        >
           <button
             className="page-link"
             onClick={() => handlePageChange(currentPage + 1)}
-            disabled={currentPage === 3}
+            disabled={currentPage === totalPages}
           >
             <span aria-hidden="true">»</span>
           </button>
@@ -84,7 +118,3 @@ export default function LandingPage() {
     </>
   );
 }
-
-LandingPage.propTypes = {
-  products: PropTypes.array.isRequired,
-};

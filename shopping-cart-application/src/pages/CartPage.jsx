@@ -58,7 +58,3 @@ export default function CartPage() {
     </>
   );
 }
-
-CartPage.propTypes = {
-  productsInCart: PropTypes.array.isRequired,
-};

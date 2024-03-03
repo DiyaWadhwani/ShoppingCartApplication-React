@@ -1,6 +1,11 @@
 import PropTypes from "prop-types";
 
-export default function ProductItem({ products, onAddToCart }) {
+export default function ProductItem({
+  products,
+  onAddToCart,
+  onEditProduct,
+  onDeleteProduct,
+}) {
   return (
     <>
       <ul>
@@ -13,10 +18,26 @@ export default function ProductItem({ products, onAddToCart }) {
             <div className="product-accessory">
               <button
                 type="button"
-                className="btn btn-success"
+                className="product-button btn btn-success"
                 onClick={() => onAddToCart(product)}
               >
                 Add to Cart
+              </button>
+
+              <button
+                type="button"
+                className="product-button btn btn-primary"
+                onClick={() => onEditProduct(product)}
+              >
+                Edit
+              </button>
+
+              <button
+                type="button"
+                className="product-button btn btn-danger"
+                onClick={() => onDeleteProduct(product)}
+              >
+                Delete
               </button>
             </div>
           </li>
@@ -26,7 +47,7 @@ export default function ProductItem({ products, onAddToCart }) {
   );
 }
 
-ProductItem.PropTypes = {
+ProductItem.propTypes = {
   products: PropTypes.array.isRequired,
   onAddToCart: PropTypes.func.isRequired,
 };

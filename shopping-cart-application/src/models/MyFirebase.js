@@ -30,17 +30,14 @@ export default function MyFirebase() {
     const productsRef = collection(myDatabase, "products");
     const fetchedProducts = await getDocs(productsRef);
     for (const doc of fetchedProducts.docs) {
-      console.log(doc.id, " => ", doc.data());
       products.push({ id: doc.id, data: doc.data() });
     }
     return products;
   };
 
   me.addProductsToCart = async (product) => {
-    console.log("Adding products to cart", product);
     let response = {};
     const cartRef = collection(myDatabase, "cart");
-    console.log("cartRef", cartRef);
     try {
       const { id, data } = product;
       const productDocRef = doc(cartRef, id);
@@ -66,7 +63,6 @@ export default function MyFirebase() {
     const cartRef = collection(myDatabase, "cart");
     const fetchedProducts = await getDocs(cartRef);
     for (const doc of fetchedProducts.docs) {
-      console.log(doc.id, " => ", doc.data());
       productsInCart.push({ id: doc.id, data: doc.data() });
     }
     return productsInCart;
@@ -76,10 +72,7 @@ export default function MyFirebase() {
     let cartItemCount = 0;
     const cartRef = collection(myDatabase, "cart");
     const fetchedProducts = await getDocs(cartRef);
-    for (const doc of fetchedProducts.docs) {
-      console.log(doc.id, " => ", doc.data());
-      cartItemCount = fetchedProducts.docs.length;
-    }
+    cartItemCount = fetchedProducts.docs.length;
     return cartItemCount;
   };
 
@@ -103,6 +96,32 @@ export default function MyFirebase() {
         message: "Failed to remove products from cart",
       };
       return response;
+    }
+  };
+
+  me.addNewProduct = async (product) => {
+    console.log("Adding new product", product);
+    const productsRef = collection(myDatabase, "products");
+    console.log("productsRef", productsRef);
+    try {
+      await setDoc(doc(productsRef), {
+        productName: product.productName,
+        productPrice: product.productPrice,
+      });
+      console.log("New product added successfully");
+    } catch (error) {
+      console.error("Error adding new product:", error);
+    }
+  };
+
+  me.deleteProduct = async (product) => {
+    console.log("Deleting products", product);
+    const productRef = collection(myDatabase, "products");
+    try {
+      await deleteDoc(doc(productRef, product.id));
+      console.log("Products removed from cart successfully");
+    } catch (error) {
+      console.error("Error removing products from cart:", error);
     }
   };
 
