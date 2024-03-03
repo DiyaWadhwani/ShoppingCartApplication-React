@@ -44,21 +44,18 @@ export default function AddProduct() {
   };
 
   const onAddNewProduct = async (product) => {
-    console.log("Add Product", product);
     await myFirebase.addNewProduct(product);
     alert("Added new product successfully!");
     window.location.reload();
   };
 
   const onUpdateProduct = async (product) => {
-    console.log("Update Product", product);
     await myFirebase.updateProduct(product);
     alert("Updated product successfully!");
     fetchProductDetails(productId);
   };
 
   const fetchProductDetails = async (productId) => {
-    console.log("Fetching product details", productId);
     const product = await myFirebase.getProductDetails(productId);
     nameRef.current.value = product.productName;
     priceRef.current.value = product.productPrice;

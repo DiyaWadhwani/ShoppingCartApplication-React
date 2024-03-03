@@ -18,9 +18,7 @@ export default function CartPage() {
   }, []);
 
   const onRemoveFromCart = async (product) => {
-    console.log("Remove from Cart", product.id, product.data);
-    const response = await myFirebase.removeProductsFromCart(product);
-    console.log(response);
+    await myFirebase.removeProductsFromCart(product);
     window.location.reload();
   };
 
