@@ -37,7 +37,6 @@ export default function MyFirebase() {
   };
 
   me.addProductsToCart = async (product) => {
-    let response = {};
     const cartRef = collection(myDatabase, "cart");
     try {
       const { id, data } = product;
@@ -47,15 +46,8 @@ export default function MyFirebase() {
         productPrice: data.productPrice,
       });
       console.log("Products added to cart successfully");
-      response = {
-        success: true,
-        message: "Products added to cart successfully",
-      };
-      return response;
     } catch (error) {
       console.error("Error adding products to cart:", error);
-      response = { success: false, message: "Failed to add products to cart" };
-      return response;
     }
   };
 
