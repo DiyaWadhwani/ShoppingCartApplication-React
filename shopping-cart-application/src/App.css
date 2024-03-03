@@ -7,8 +7,29 @@
     box-shadow: 0 4px 6px -6px black;
 }
 
-.cart-icon{
+.header-icon{
     font-size: 1.5rem;
     color: black;
     cursor: pointer;
+}
+
+.product-display{
+    display: flex;
+    padding: 20px;
+    list-style: none;
+    border-color: orangered;
+    border-width: 3px;
+}   
+
+.product-name{
+    display: flex;
+}
+
+.product-price{
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.product-accessory{
+    margin-left: auto;
 }

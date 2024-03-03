@@ -1,11 +1,10 @@
-import React from "react";
 import "./App.css";
-import Header from "./fragments/Header";
+import LandingPage from "./pages/LandingPage";
 
 export default function App() {
   return (
     <>
-      <Header />
+      <LandingPage />
     </>
   );
 }
