@@ -72,6 +72,17 @@ export default function MyFirebase() {
     return productsInCart;
   };
 
+  me.fetchCountInCart = async () => {
+    let cartItemCount = 0;
+    const cartRef = collection(myDatabase, "cart");
+    const fetchedProducts = await getDocs(cartRef);
+    for (const doc of fetchedProducts.docs) {
+      console.log(doc.id, " => ", doc.data());
+      cartItemCount = fetchedProducts.docs.length;
+    }
+    return cartItemCount;
+  };
+
   me.removeProductsFromCart = async (product) => {
     console.log("Removing products from cart", product);
     let response = {};

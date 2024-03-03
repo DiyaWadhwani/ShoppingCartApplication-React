@@ -9,7 +9,7 @@ export default function LandingPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
   const itemsPerPage = 10;
-  //   const [cartItemCount, setCartItemCount] = useState(0);
+  const [cartItemCount, setCartItemCount] = useState(0);
 
   useEffect(() => {
     const getProducts = async () => {
@@ -23,12 +23,6 @@ export default function LandingPage() {
     getProducts();
   }, [currentPage]);
 
-  // const getCartCount = async () => {
-  //   const cartCount = await myFirebase.fetchCountInCart();
-  //   console.log(cartCount);
-  //   setCartItemCount(cartCount.length);
-  // };
-
   const handlePageChange = (newPage) => {
     setCurrentPage(newPage);
   };
@@ -36,6 +30,8 @@ export default function LandingPage() {
   const onAddToCart = async (product) => {
     console.log("Add to Cart", product.id, product.data);
     const response = await myFirebase.addProductsToCart(product);
+    const cartCount = await myFirebase.fetchCountInCart();
+    setCartItemCount(cartCount);
     console.log(response);
   };
 
@@ -45,6 +41,7 @@ export default function LandingPage() {
         <h1>Shopping Cart Application</h1>{" "}
         <Link to="/cart">
           <FaShoppingCart className="header-icon" />
+          <span className="cart-count">{cartItemCount}</span>
         </Link>
       </div>
       <ProductItem products={products} onAddToCart={onAddToCart} />
@@ -69,7 +66,12 @@ export default function LandingPage() {
             2
           </button>
         </li>
-        <li className={`page-item ${currentPage === 4 ? "disabled" : ""}`}>
+        <li className={`page-item ${currentPage === 3 ? "active" : ""}`}>
+          <button className="page-link" onClick={() => handlePageChange(3)}>
+            3
+          </button>
+        </li>
+        <li className={`page-item ${currentPage === 3 ? "disabled" : ""}`}>
           <button
             className="page-link"
             onClick={() => handlePageChange(currentPage + 1)}

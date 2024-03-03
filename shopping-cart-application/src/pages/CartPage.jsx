@@ -31,7 +31,6 @@ export default function CartPage() {
           <h2>Cart</h2>
           <Link to="/">
             <FaHome className="header-icon" />
-            {/* <span className="cart-count">{cartItemCount}</span> */}
           </Link>
         </div>
         <ul>

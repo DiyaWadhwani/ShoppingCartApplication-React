@@ -32,4 +32,12 @@
 
 .product-accessory{
     margin-left: auto;
-}git
+}
+
+.cart-count {
+  background-color: #ff4500; /* Set your desired background color for the count */
+  color: #fff; /* Set your desired text color for the count */
+  padding: 4px 8px; /* Adjust the padding for the count */
+  border-radius: 50%; /* Make it a circle */
+  font-size: 14px; /* Set your desired font size for the count */
+}
