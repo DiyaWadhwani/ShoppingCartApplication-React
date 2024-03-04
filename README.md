@@ -49,7 +49,9 @@ To run the application locally, follow these steps:
 (Quillbot was used to enhance the language here)
 
 Vite, a useful tool for creating web apps, helped the idea take shape. To construct dynamic interfaces, I chose to use React, and the app's sleek style was achieved by combining Bootstrap with custom CSS. Decision-making involved the usage of ChatGPT 3.5, which assisted with UI selections like using specific classNames to make the UI look a certain way, prompts were used to understand how to incorporate reusing the document IDs in a collection to create new documents in a different collection, and ideas on how to implement the hooks to set certain values like the pagination buttons and the count of items present in the cart. I used Firestore for the database, since it makes managing and storing product data simple.
+
 Interactive conversations with ChatGPT during the development phase required troubleshooting through prompts that addressed particular issues. By refining the prompts through iteration, the interaction between human input and AI-generated responses was improved. The collaborative process produced useful information on the effectiveness of utilizing GenAI to perform creative problem-solving and code optimization.
+
 This Shopping Cart Application is a result of teamwork between human input and AI collaboration. 
 I used Vite, React, Bootstrap, and Firebase to create an appealing and simple online application. The recommendations from the discussion with ChatGPT helped me in overcoming challenges and guided my overall creative decisions.
 
