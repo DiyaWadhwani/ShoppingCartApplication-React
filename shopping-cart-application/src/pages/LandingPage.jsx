@@ -8,7 +8,7 @@ import ProductItem from "../components/ProductItem";
 export default function LandingPage() {
   const [currentPage, setCurrentPage] = useState(1);
   const [products, setProducts] = useState([]);
-  const itemsPerPage = 10;
+  const itemsPerPage = 20;
   const [cartItemCount, setCartItemCount] = useState(0);
   const [totalItems, setTotalItems] = useState(0);
 
